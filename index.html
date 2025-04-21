@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Buscar Voos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <div class="nuvem nuvem1">☁️</div>
+  <div class="nuvem nuvem2">☁️</div>
+  <div class="nuvem nuvem3">☁️</div>
+  <div class="nuvem nuvem4">☁️</div>
+  <div class="nuvem nuvem5">☁️</div>
+  <div class="nuvem nuvem6">☁️</div>
+  <div class="nuvem nuvem7">☁️</div>
+  <div class="nuvem nuvem8">☁️</div>
+  <div class="nuvem nuvem9">☁️</div>
+  
+  <div class="avião">✈️</div>
+  <div class="nuvem">☁️</div>
+  <div class="background-globo"></div>
+  <div class="container">
+    <h1>
+      🔎 Buscar Voos
+    </h1>
+    
+    <label for="origem">Origem:</label>
+    <input type="text" id="origem" placeholder="Ex: Mato Grosso">
+
+    <label for="destino">Destino:</label>
+    <input type="text" id="destino" placeholder="Ex: Espanha">
+
+    <label for="saida">Data de Saída:</label>
+    <input type="date" id="saida">
+
+    <label for="chegada">Data de Chegada:</label>
+    <input type="date" id="chegada">
+
+    <button onclick="buscarVoos()">Buscar</button>
+
+    <ul id="resultado"></ul>
+  </div>
+
+  <script>
+    
+    function formatarDataISO(isoString) {
+      const data = new Date(isoString);
+      const dia = String(data.getDate()).padStart(2, '0');
+      const mes = String(data.getMonth() + 1).padStart(2, '0');
+      const ano = data.getFullYear();
+      const horas = String(data.getHours()).padStart(2, '0');
+      const minutos = String(data.getMinutes()).padStart(2, '0');
+      return `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+    }
+
+    async function buscarVoos() {
+      const origem = encodeURIComponent(document.getElementById('origem').value);
+      const destino = encodeURIComponent(document.getElementById('destino').value);
+      const saida = document.getElementById('saida').value;
+      const chegada = document.getElementById('chegada').value;
+
+      const url = `http://localhost:3000/voos?origem=${origem}&destino=${destino}&saida=${saida}&chegada=${chegada}`;
+
+      try {
+        const resposta = await fetch(url);
+        const dados = await resposta.json();
+        exibirResultados(dados);
+      } catch (erro) {
+        document.getElementById('resultado').innerHTML = `<li>Erro ao buscar voos: ${erro}</li>`;
+      }
+    }
+
+    function exibirResultados(voos) {
+      const lista = document.getElementById('resultado');
+      lista.innerHTML = '';
+
+      if (!voos.length) {
+        lista.innerHTML = '<li>Nenhum voo encontrado.</li>';
+        return;
+      }
+
+      voos.forEach(voo => {
+        const item = document.createElement('li');
+        item.innerHTML = `
+        ✈️ <strong>Voo Nº:</strong> ${voo.numero_voo}<br>
+        🏢 <strong>Empresa:</strong> ${voo.empresa}<br>
+        📍 <strong>Origem:</strong> ${voo.origem}<br>
+        🌍 <strong>Destino:</strong> ${voo.destino}<br>
+        🕓 <strong>Saída:</strong> ${formatarDataISO(voo.saida)}<br>
+        🕓 <strong>Chegada:</strong> ${formatarDataISO(voo.chegada)}
+      `;
+
+        lista.appendChild(item);
+      });
+    }
+    
+  </script>
+  <ul id="resultado"></ul>
+</div>
+
+<!-- Fundos animados -->
+<div class="avião">✈️</div>
+<div class="nuvem">☁️</div>
+<div class="background-globo"></div>
+</body>
+</html>

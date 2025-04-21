@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+:root {
+  --azul-primario: #005ce6;
+  --azul-claro: #e6f0ff;
+  --branco: #ffffff;
+  --cinza-claro: #f4f4f4;
+  --radius: 18px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(120deg, #b3d9ff, #e6f2ff);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  padding: 40px 50px;
+  border-radius: var(--radius);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  width: 90%;
+  margin: 80px auto;
+  z-index: 2;
+  position: relative;
+  animation: fadeIn 1s ease;
+}
+
+h1 {
+  text-align: center;
+  color: var(--azul-primario);
+  margin-bottom: 30px;
+  font-size: 32px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: block;
+  color: #333;
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  background: #f9fbff;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: var(--azul-primario);
+  outline: none;
+}
+
+button {
+  background-color: var(--azul-primario);
+  color: var(--branco);
+  padding: 14px 30px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 92, 230, 0.2);
+  width: 100%;
+}
+
+button:hover {
+  background-color: #0047b3;
+  transform: translateY(-2px);
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 30px;
+}
+
+li {
+  background-color: var(--cinza-claro);
+  border-left: 6px solid var(--azul-primario);
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  margin-bottom: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  animation: slideUp 0.6s ease;
+}
+
+li strong {
+  color: #003370;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatPlane {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes cloudMove {
+  0% { left: -200px; }
+  100% { left: 110%; }
+}
+
+/* Aviões e nuvens */
+.avião, .nuvem {
+  position: absolute;
+  z-index: 0;
+  
+  font-size: 100px;
+  animation: floatPlane 5s ease-in-out infinite;
+}
+
+.avião {
+    top: 40px;
+    left: 60px;
+    color: #005ce6;
+  }
+
+.nuvem {
+    position: fixed;
+    font-size: 120px;
+    color: #ffffff;
+    opacity: 0.08;
+    z-index: 1;
+    animation: cloudMove 80s linear infinite;
+    user-select: none;
+    pointer-events: none;
+  }
+  
+  .nuvem1 { top: 80px; left: -200px; animation-delay: 0s; font-size: 100px; }
+  .nuvem2 { top: 160px; left: -300px; animation-delay: 10s; font-size: 130px; }
+  .nuvem3 { top: 250px; left: -400px; animation-delay: 20s; font-size: 110px; }
+  .nuvem4 { top: 120px; left: -500px; animation-delay: 30s; font-size: 150px; }
+  .nuvem5 { top: 220px; left: -600px; animation-delay: 40s; font-size: 120px; }
+  .nuvem6 { top: 180px; left: -700px; animation-delay: 50s; font-size: 140px; }
+  .nuvem7 { top: 300px; left: -800px; animation-delay: 60s; font-size: 110px; }
+  .nuvem8 { top: 100px; left: -900px; animation-delay: 70s; font-size: 100px; }
+  .nuvem9 { top: 200px; left: -1000px; animation-delay: 80s; font-size: 125px; }
+  
+  @keyframes cloudMove {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(140vw);
+    }
+  }
+
+/* Adicionais */
+.background-globo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('globo.png') no-repeat center center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.50;
+    z-index: 0;
+  }
+  
